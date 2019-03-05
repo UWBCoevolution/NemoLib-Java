@@ -1,3 +1,5 @@
+** Forked from https://github.com/drewandersen/nemolib
+
 nemolib
 =======
 
@@ -33,3 +35,4 @@ Future Project Ideas
 * Implement the nauty algorithm in Java and include it as a dependency in nemolib. 
 * Research other graph/network parallelziation libraries and implement NemoProfile to compare.
 * Write unit tests.
+
