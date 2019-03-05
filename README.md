@@ -27,8 +27,7 @@ mvn package
 
 Installation and Use in Windows
 --------------------
-**Prerequisites
-* Netbeans IDE and jdk 8.x version (jdk 9.x not work)
+* Prerequisites: Netbeans IDE and jdk 8.x version (jdk 9.x not work)
 * Download and install Cygwin (follow the link to learn how to install gcc and g++)
 http://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows/
 * Systems->advanced->Environment Variables
