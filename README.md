@@ -7,6 +7,10 @@ Description
 -----------
 The nemolib library includes tools specifically designed for executing the NemoProfile algorithm. Classes have also been designed with parallelization in mind.
 
+** DOI
+https://zenodo.org/badge/173347013.svg
+
+https://zenodo.org/badge/latestdoi/173347013
 
 Installation and Use in Linux
 --------------------
