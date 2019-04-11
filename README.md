@@ -46,8 +46,7 @@ http://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows/
 
 Example Program (testing the library)
 ---------------
-An example program can be found at https://github.com/Kimw6/nemoprofile.
-
+An example program can be found at NemoLib-Java/src/main/java/edu/uwb/nemolib_examples/network_motif_detector/
 Documentation
 -------------
 JavaDocs are auto-generated when Maven creates the project.
