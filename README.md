@@ -1,11 +1,13 @@
-** Forked from https://github.com/drewandersen/nemolib
+** Originally from https://github.com/zicanl/NemoLib-Java-V2
+
 
 nemolib
 =======
 
 Description
 -----------
-The nemolib library includes tools specifically designed for executing the NemoProfile algorithm. Classes have also been designed with parallelization in mind.
+The nemolib library includes tools specifically designed for executing the the detection of network motifs. Classes have also been designed with parallelization in mind.
+It includes network-centric and motif-centric approach. In network-cenric approach, both of explicit and direct methods are implemented for statistical analysis.
 
 DOI
 ---
@@ -39,29 +41,27 @@ http://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows/
  From the path variable, add C:\Cygwin64\bin (for 64 bit) or (3)	C:\cygwin\bin (for 32 bit)
  
 * NemoLib install
-  From https://github.com/Kimw6/NemoLib-Java
   Download NemoLib as zip file.
   Open the project in the NetBeans, build the library.
   With default setting, the library is, nemolib-master/target/ nemolib-0.1-SNAPSHOT.jar
+  For external library, use dependency to add it (see pom.xml for details)
 
 Example Program (testing the library)
 ---------------
-An example program can be found at 
-https://github.com/Kimw6/nemoprofile
-
 The example java main file can be also found at 
 NemoLib-Java/src/main/java/edu/uwb/nemolib_examples/network_motif_detector/
+
 
 Documentation
 -------------
 JavaDocs are auto-generated when Maven creates the project.
 
+
 Future Project Ideas
 --------------------
 * Parallelize random graph analysis (embarassingly parallel).
 * Complete parallelization using MPI.
-* Implement SubgraphCollect by adding subgraph induction functionality.
-* Implement the nauty algorithm in Java and include it as a dependency in nemolib. 
+* * Implement the nauty algorithm in Java and include it as a dependency in nemolib. 
 * Research other graph/network parallelziation libraries and implement NemoProfile to compare.
 * Write unit tests.
 
