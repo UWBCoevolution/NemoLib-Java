@@ -29,6 +29,9 @@ public class SubgraphCount implements SubgraphEnumerationResult
 	public void addSubgraph(Subgraph currentSubgraph)
 	{
 		String label = currentSubgraph.getByteString();
+                
+                int[] nodes = currentSubgraph.getNodes();
+             
 		int total = 0;
 		if (labelFreqMap.containsKey(label)) {
 			total = labelFreqMap.get(label);
@@ -72,6 +75,7 @@ public class SubgraphCount implements SubgraphEnumerationResult
 		for (Integer freq : labelFreqMap.values()) {
 			total += (double) freq;
 		}
+                
 		Map<String, Double> labelRelFreqMap = new HashMap<>();
 		for (Map.Entry<String, Integer> labelFreq : labelFreqMap.entrySet()) {
 			String label = labelFreq.getKey();
@@ -79,6 +83,7 @@ public class SubgraphCount implements SubgraphEnumerationResult
 			double relFreq = (double) freq / total;
 			labelRelFreqMap.put(label, relFreq);
 		}
+                
 		return labelRelFreqMap;
 	}
 

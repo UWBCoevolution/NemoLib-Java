@@ -86,17 +86,19 @@ public final class Labeler {
 
 		// must use LinkedHashMap to preserve ordering
 		Map<String, String> results = new LinkedHashMap<>();
-		
+ 		
         BufferedWriter writer = null;
         BufferedReader inputReader = null;
         BufferedReader outputReader = null;
+ 
         int returnCode = 0;
         try {
             writer = new BufferedWriter(new FileWriter(inputFilename));
             for (String label : labels ) {
                 writer.write(label);
+               // System.out.println("label="+label);
                 writer.write('\n');
-				results.put(label, "");
+		results.put(label, "");
             }
             writer.close();
 
@@ -109,6 +111,7 @@ public final class Labeler {
 
             // wait for labelg to complete execution
             returnCode = labelg.waitFor();
+            
 
             // read back in the input and output file
             inputReader = new BufferedReader(new FileReader(inputFilename));
@@ -122,6 +125,7 @@ public final class Labeler {
                 results.put(inputLine, outputLine);
                 inputLine = inputReader.readLine();
                 outputLine = outputReader.readLine();
+                
             }
             inputReader.close();
             outputReader.close();
@@ -151,6 +155,8 @@ public final class Labeler {
             System.err.println();
             System.exit(-1);
         }
+        
+      //  System.out.println(results);
 
         return results;
     }

@@ -24,14 +24,20 @@ public class SubgraphProfile implements SubgraphEnumerationResult, Serializable
 	 */
 	public SubgraphProfile()
 	{
-		labelToVertexToFrequency = new HashMap<>();
+		System.out.println("SubgraphProfile");
+            labelToVertexToFrequency = new HashMap<>();
 	}
+        
+        public Map<String, Map<Integer, Integer>>  getProfileMap(){
+            return labelToVertexToFrequency;
+        }
 
 	// uses interface JavaDoc comment
 	@Override
 	public void addSubgraph(Subgraph currentSubgraph)
 	{
-		int[] vertices = currentSubgraph.getNodes();
+		
+                int[] vertices = currentSubgraph.getNodes();
 		String label = currentSubgraph.getByteString();
 		Map<Integer, Integer> nodeToFrequency =
 				labelToVertexToFrequency.get(label);
@@ -153,13 +159,10 @@ public class SubgraphProfile implements SubgraphEnumerationResult, Serializable
 		return result;
 	}
 
-	/**
-	 * Returns a string representation of this SubgraphProfile, with rows
-	 * representing vertex id numbers and columns representing subgraph labels.
-	 * @return a string representation of this SubgraphProfile object.
-	 */
+	
 	@Override
 	public String toString() {
+
 		StringBuilder result = new StringBuilder();
 		String newline = System.getProperty("line.separator");
 
@@ -174,9 +177,68 @@ public class SubgraphProfile implements SubgraphEnumerationResult, Serializable
 			}
 			result.append(newline);
 		}
+                
+                
 		return result.toString();
 	}
+        
+        /**
+	 * Returns a string representation of this SubgraphProfile, with rows
+	 * representing vertex id numbers and columns representing subgraph labels.
+	 * @return a string representation of this SubgraphProfile object.
+	 */
 
+       /* @Override
+        public String toString() {	
+            
+            System.out.println();
+		
+                // Will fill out the labelFreq
+                Map<Integer, Map<String,Integer>> vertexToLabelFreq =new TreeMap<Integer, Map<String, Integer>>();
+                for (Map.Entry<String, Map<Integer, Integer>> labelFreqs :
+				labelToVertexToFrequency.entrySet()) {      
+                    
+			String label = labelFreqs.getKey();
+			for (Map.Entry<Integer, Integer> nodeFreqs :
+					labelFreqs.getValue().entrySet()) {
+                            
+                            Integer Vertex = nodeFreqs.getKey();
+                            Integer Freq = nodeFreqs.getValue();
+                            // if the vertexToLabelFreq contains the vertext then update
+                            Map <String, Integer> labeltoFreq = new HashMap<String, Integer>();
+                            if (vertexToLabelFreq.keySet().contains(Vertex))
+                                labeltoFreq= vertexToLabelFreq.get(Vertex);
+                                                      
+                            labeltoFreq.put(label, Freq);
+                            
+                            vertexToLabelFreq.put(Vertex, labeltoFreq);
+                        }
+			
+			
+		}
+                
+                StringBuilder result = new StringBuilder();
+                
+                String newline = System.getProperty("line.separator");
+                
+
+		for (Map.Entry<Integer, Map<String,Integer>> vlabelFreqs :
+				vertexToLabelFreq.entrySet()) {
+			result.append(vlabelFreqs.getKey());
+			result.append(newline);
+			for (Map.Entry<String, Integer> nodeFreqs :
+					vlabelFreqs.getValue().entrySet()) {
+				result.append("[").append(nodeFreqs.getKey()).append(",")
+						.append(nodeFreqs.getValue()).append("]");
+			}
+			result.append(newline);
+		}
+                
+                
+		return result.toString();
+	}*/
+
+        
 	// Returns the total number of subgraphs in this SubgraphProfile
 	private int getTotalSubgraphCount() {
 		int total = 0;

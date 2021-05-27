@@ -1,14 +1,13 @@
 package edu.uwb.nemolib;
 
 import java.io.Serializable;
-import java.lang.IllegalStateException;
 import java.util.NoSuchElementException;
 
-class CompactHashSet implements Serializable{
+class CompactHashSet implements Serializable {
 
     private static final int DEFAULT_CAPACITY = 29;
     private static final int STARTING_BUCKET_SIZE = 4;
-    private static final int NULL_ELEMENT = -1;
+    private static final int NULL_ELEMENT = 0;
 
     private int[][] table;
     private int size;
@@ -20,7 +19,7 @@ class CompactHashSet implements Serializable{
     CompactHashSet(int tableSize) {
         if (tableSize < 0) {
             throw new IllegalArgumentException(
-                "Argument out of range (must be non-negative).");
+                    "Argument out of range (must be non-negative).");
         }
 
         size = 0;
@@ -48,12 +47,14 @@ class CompactHashSet implements Serializable{
     }
 
     void add(int element) {
-        if (element < 0) {
-            throw new IllegalArgumentException(
-                "Argument out of range (must be non-negative).");
+        if (element == 0) {
+            throw new IllegalArgumentException("Argument is zero (must be non-zero).");
         }
 
+
         int bucket = hash(element) % table.length;
+
+
         if (table[bucket] == null) {
 
             // create a bucket if it does not exist
@@ -92,9 +93,9 @@ class CompactHashSet implements Serializable{
     }
 
     boolean contains(int element) {
-        if (element < 0) {
+        /*if (element < 0) {
             return false;
-        }
+        }*/
 
         int bucket = hash(element) % table.length;
         if (table[bucket] == null) {
@@ -110,9 +111,9 @@ class CompactHashSet implements Serializable{
     }
 
     boolean remove(int element) {
-        if (element < 0) {
+        /*if (element < 0) {
             return false;
-        }
+        }*/
 
         int bucket = hash(element) % table.length;
         if (table[bucket] == null) {
@@ -145,7 +146,7 @@ class CompactHashSet implements Serializable{
     }
 
     private int hash(int element) {
-        return element;
+        return Math.abs(element);
     }
 
     Iter iterator() {

@@ -36,7 +36,7 @@ public class RandESU implements SubgraphEnumerator {
 
 		if (probs.get(0) == 1.0) // select all nodes
 		{
-			for (int i = 0; i < graph.getSize(); ++i) {
+			for (int i = 1; i < graph.getSize()+1; ++i) {
 				selectedVertices.add(i);
 			}
 		} else { // determine how many nodes should be sampled initially
@@ -47,11 +47,11 @@ public class RandESU implements SubgraphEnumerator {
 			// populate list with appropriate number of nodes
 			for (int numVerticesSelected = 0; numVerticesSelected <
 					numVerticesToSelect; ++numVerticesSelected) {
-
-				int nodeSelected = rand.nextInt(graph.getSize());
+                            // ensure 0<nodeSelected<=n, since nexInt select o<=node<n
+                            int nodeSelected = rand.nextInt(graph.getSize())+1;
 				// ensure no duplicates
-				while (selectedVertices.contains(nodeSelected)) {
-					nodeSelected = rand.nextInt(graph.getSize());
+				while (selectedVertices.contains(nodeSelected)||nodeSelected<1||nodeSelected>graph.getSize()) {
+					nodeSelected = rand.nextInt(graph.getSize())+1;
 				}
 				selectedVertices.add(nodeSelected);
 			}
@@ -75,13 +75,16 @@ public class RandESU implements SubgraphEnumerator {
 	public static void enumerate (Graph graph,
 		SubgraphEnumerationResult subgraphs,
 		int subgraphSize, List<Double> probs, int vertex) {
-
-		Subgraph subgraph = new Subgraph(subgraphSize);
+             /*Modified to include directed graph*/
+                Subgraph subgraph = new Subgraph(subgraphSize, graph.getDir());
+                                
+                
 		AdjacencyList adjacencyList = new AdjacencyList();
 		CompactHashSet.Iter iter =
 				graph.getAdjacencyList(vertex).iterator();
 		while (iter.hasNext()) {
-			int next = iter.next();
+                    // added 8/22/2018 because the adjacnecyList now contains direction, which shouldn't affect the algorithm
+			int next =Math.abs(iter.next());                     
 			if (next > vertex) {
 				adjacencyList.add(next);
 			}
@@ -109,7 +112,7 @@ public class RandESU implements SubgraphEnumerator {
 		// 1 node away from completion
 		if (subgraph.size() == subgraph.order() - 1) {
 			while (wIter.hasNext()) {
-				int w = wIter.next();
+				int w = Math.abs(wIter.next());
 				// check the last value in prob list
 				if (shouldExtend(probs.get(probs.size() - 1))) {
 					// construct a union of w and the existing subgraph
@@ -125,7 +128,7 @@ public class RandESU implements SubgraphEnumerator {
 		// otherwise create the extention
 		while (wIter.hasNext())
 		{
-			int w = wIter.next();
+			int w = Math.abs(wIter.next());
 			wIter.remove();
 
 			// next extension contains at least the current extension
@@ -136,7 +139,7 @@ public class RandESU implements SubgraphEnumerator {
 			CompactHashSet.Iter uIter = graph.getAdjacencyList(w).iterator();
 			while (uIter.hasNext())
 			{
-				int u = uIter.next();
+				int u = Math.abs(uIter.next());
 				if (u > v)
 				{
 					if (isExclusive(graph, u, subgraph))
@@ -197,9 +200,10 @@ public class RandESU implements SubgraphEnumerator {
 		}
 		for (int i = 0; i < subgraph.size(); i++) {
 			int subgraphNode = subgraph.get(i);
-			if (graph.getAdjacencyList(subgraphNode).contains(node)) {
+                        if ((graph.getAdjacencyList(subgraphNode).contains(node)) || (graph.getAdjacencyList(subgraphNode).contains((-1)*node))){
 				return false;
 			}
+                        
 		}
 		return true;
 	}

@@ -22,7 +22,7 @@ public class ESU implements SubgraphEnumerator
 	 */
 	public void enumerate(Graph graph, int subgraphSize,
 	                      SubgraphEnumerationResult subgraphs) {
-		for (int i = 0; i < graph.getSize(); i++) {
+		for (int i = 1; i < graph.getSize()+1; i++) {
 			enumerate(graph, subgraphs, subgraphSize, i);
 		}
 	}
