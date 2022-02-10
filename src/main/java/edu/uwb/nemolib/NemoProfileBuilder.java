@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by user on 1/20/17.
+ * Fixed null issues on 2/9/2022
  */
 public class NemoProfileBuilder {
 
