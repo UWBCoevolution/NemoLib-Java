@@ -75,7 +75,7 @@ public class NemoProfileBuilder {
             // Collect and sort all vertices that are participated in network motifs
             for (String canlabel: labels){
                 Map<Integer, Integer> vertexFreq = profileMap.get(canlabel);
-                vertices.addAll(vertexFreq.keySet());                              
+		if(vertexFreq!=null) vertices.addAll(vertexFreq.keySet());                              
             }
             
             // Write to a file 
@@ -93,8 +93,9 @@ public class NemoProfileBuilder {
                 WriteFileBuffer.write(vertex.toString());
                 
                 for (String label:labels){
-                    Integer freq = profileMap.get(label).get(vertex);
-                    if (freq == null) freq=0;
+                    Integer freq = 0;
+                    Map<Integer, Integer> tmpMap = profileMap.get(label);                                        
+                    if(tmpMap!=null) freq = tmpMap.get(vertex);
                     WriteFileBuffer.write("\t"+freq);
                 }
                 
@@ -147,7 +148,8 @@ public class NemoProfileBuilder {
             // Collect and sort all vertices that are participated in network motifs
             for (String canlabel: labels){
                 Map<Integer, Integer> vertexFreq = profileMap.get(canlabel);
-                indices.addAll(vertexFreq.keySet());                              
+		if(vertexFreq!=null)
+                            indices.addAll(vertexFreq.keySet());                            
             }
             
             // Collect all vertices (as original name) participated in nemo 
@@ -169,8 +171,9 @@ public class NemoProfileBuilder {
                 WriteFileBuffer.write(vertex.toString());
                 
                 for (String label:labels){
-                    Integer freq = profileMap.get(label).get(nametoIndex.get(vertex));
-                    if (freq == null) freq=0;
+                    Integer freq = 0;
+                    Map<Integer, Integer> tmpMap = profileMap.get(label);
+                    if (tmpMap != null) freq = tmpMap.get(nametoIndex.get(vertex));
                     WriteFileBuffer.write("\t"+freq);
                 }
                 
